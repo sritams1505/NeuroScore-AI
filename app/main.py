@@ -13,7 +13,7 @@ print(os.getcwd())
 print("\nModel Path:")
 print(os.path.abspath("extra_trees_default.pkl"))
 
-model = joblib.load("extra_trees_default.pkl")
+model = joblib.load("app/extra_trees_default.pkl")
 
 print("\nLoaded Model:")
 print(model)
