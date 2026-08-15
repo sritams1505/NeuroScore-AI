@@ -10,7 +10,7 @@
    * 0. CONFIG
    * ------------------------------------------------------------------ */
   const CONFIG = {
-    BASE_URL: 'http://127.0.0.1:8000',
+    BASE_URL: 'https://neuroscore-ai-2.onrender.com',
     PREDICT_ENDPOINT: '/predict',
     HEALTH_ENDPOINT: '/',
     REQUEST_TIMEOUT_MS: 15000,
