@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeuroScore | Student Mental Health Intelligence</title>
+  <meta name="description" content="AI-powered neural health intelligence dashboard that predicts student mental health scores from lifestyle and social media data." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ ANIMATED NEURAL NETWORK BACKGROUND ============ -->
+  <canvas id="neuralCanvas" aria-hidden="true"></canvas>
+
+  <!-- ============ TOAST CONTAINER ============ -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="#top" class="brand">
+        <span class="brand__node" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="28" height="28">
+            <circle cx="20" cy="20" r="6" fill="url(#brandGrad)"/>
+            <circle cx="6" cy="10" r="3" fill="#00e5ff"/>
+            <circle cx="34" cy="8" r="2.5" fill="#a855f7"/>
+            <circle cx="34" cy="32" r="3" fill="#00e5ff"/>
+            <circle cx="6" cy="30" r="2.5" fill="#a855f7"/>
+            <line x1="20" y1="20" x2="6" y2="10" stroke="#00e5ff" stroke-width="1" opacity="0.6"/>
+            <line x1="20" y1="20" x2="34" y2="8" stroke="#a855f7" stroke-width="1" opacity="0.6"/>
+            <line x1="20" y1="20" x2="34" y2="32" stroke="#00e5ff" stroke-width="1" opacity="0.6"/>
+            <line x1="20" y1="20" x2="6" y2="30" stroke="#a855f7" stroke-width="1" opacity="0.6"/>
+            <defs>
+              <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#00e5ff"/>
+                <stop offset="100%" stop-color="#a855f7"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        NeuroScore
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#top">Home</a>
+        <a href="#predict-section">Predict</a>
+        <a href="#about-model">About the Model</a>
+      </nav>
+
+      <div class="navbar__right">
+        <div class="api-status" id="apiStatus" title="Backend connectivity">
+          <span class="api-status__dot" id="apiStatusDot"></span>
+          <span class="api-status__label" id="apiStatusLabel">Checking API…</span>
+        </div>
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero" id="hero">
+      <div class="hero__content">
+        <div class="eyebrow">
+          <h3>NeuroScore</h3>
+          <p>Neural Health Intelligence Platform</p>
+        </div>
+        <h1 class="hero__title">
+          Decode the <span class="glow-text">Digital&nbsp;Mind</span>.<br />
+          Predict Mental Health, <span class="glow-text-alt">Instantly</span>.
+        </h1>
+        <p class="hero__subtitle">
+          NeuroScore uses an ensemble AI model trained on student lifestyle and
+          social-media behavior to forecast a mental health wellness score —
+          mapping habits like sleep, study, screen time and stress into a single
+          neural health signal.
+        </p>
+        <div class="hero__cta">
+          <a href="#predict-section" class="btn btn--primary">
+            <span>Run a Prediction</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="synapse-orb">
+          <div class="synapse-orb__core"></div>
+          <div class="synapse-orb__ring synapse-orb__ring--1"></div>
+          <div class="synapse-orb__ring synapse-orb__ring--2"></div>
+          <div class="synapse-orb__ring synapse-orb__ring--3"></div>
+          <span class="spark spark--1"></span>
+          <span class="spark spark--2"></span>
+          <span class="spark spark--3"></span>
+          <span class="spark spark--4"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PREDICT SECTION ============ -->
+    <section class="predict-section" id="predict-section">
+      <div class="section-heading">
+        <p class="eyebrow">NeuroScore Analysis</p>
+        <h2>Your Habits Tell a Story</h2>
+        <p class="section-sub">Discover how lifestyle choices shape your overall well-being.</p>
+      </div>
+
+      <div class="console-stack">
+
+        <!-- FORM CARD -->
+        <form class="glass-card form-card" id="predictForm" novalidate>
+          <div class="form-grid" id="formGrid">
+            <!-- Fields injected by script.js -->
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary btn--block" id="predictBtn">
+              <span class="btn__label">Analyze Neural Health Patterns</span>
+              <span class="btn__spinner" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn--ghost btn--block" id="resetBtn">
+              Reset Form
+            </button>
+          </div>
+        </form>
+
+        <!-- RESULT / DASHBOARD CARD -->
+        <div class="glass-card result-card" id="resultCard">
+
+          <!-- Idle state -->
+          <div class="result-idle" id="resultIdle">
+            <div class="idle-pulse" aria-hidden="true"></div>
+            <h3>Awaiting Neural Input</h3>
+            <p>Submit the assessment form to generate a live mental health score and insight report.</p>
+          </div>
+
+          <!-- Loading state -->
+          <div class="result-loading hidden" id="resultLoading">
+            <div class="neuro-loader" aria-hidden="true">
+              <span class="neuro-loader__ring"></span>
+              <span class="neuro-loader__ring neuro-loader__ring--delay"></span>
+              <span class="neuro-loader__core"></span>
+            </div>
+            <p class="loading-text">Analyzing Neural Health Patterns<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+          </div>
+
+          <!-- Result state -->
+          <div class="result-data hidden" id="resultData">
+            <h3 class="result-data__title">Predicted Mental Health Score</h3>
+
+            <div class="gauge-wrapper">
+              <div class="gauge-wrap">
+                <svg id="gaugeSvg" viewBox="0 0 240 150" class="gauge-svg">
+                  <defs>
+                    <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#ff3b5c"/>
+                      <stop offset="25%" stop-color="#ff9d3b"/>
+                      <stop offset="50%" stop-color="#ffe23b"/>
+                      <stop offset="75%" stop-color="#8bff3b"/>
+                      <stop offset="100%" stop-color="#00ffb2"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Track background (dim, always visible) -->
+                  <path d="M 20 130 A 100 100 0 0 1 220 130" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="16" stroke-linecap="round"/>
+                  <!-- Colored track (dasharray controlled by JS) -->
+                  <path d="M 20 130 A 100 100 0 0 1 220 130" fill="none" stroke="url(#gaugeGrad)" stroke-width="16" stroke-linecap="round" class="gauge-track" style="stroke-dasharray: 0 999;"/>
+                  <g id="gaugeNeedle" class="gauge-needle" style="transform: rotate(-90deg);">
+                    <line x1="120" y1="130" x2="120" y2="45" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="120" cy="130" r="8" fill="#ffffff"/>
+                    <circle cx="120" cy="130" r="4" fill="#0a0e1a"/>
+                  </g>
+                </svg>
+                <div class="gauge-center">
+                  <span class="gauge-score" id="gaugeScore">0.0</span>
+                  <span class="gauge-max">/ 10</span>
+                </div>
+              </div>
+              <div class="gauge-band-wrapper">
+                <div class="gauge-band" id="gaugeBand">—</div>
+              </div>
+            </div>
+
+            <div class="insight-card" id="insightCard">
+              <div class="insight-card__icon" id="insightIcon">🧠</div>
+              <div>
+                <h4 id="insightTitle">—</h4>
+                <p id="insightText">—</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error state -->
+          <div class="result-error hidden" id="resultErrorState">
+            <div class="result-error__icon">⚠</div>
+            <h3>Prediction Failed</h3>
+            <p id="resultErrorMsg">Something went wrong while contacting the model server.</p>
+            <button type="button" class="btn btn--ghost" id="retryBtn">Try Again</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT MODEL SECTION ============ -->
+    <section class="about-section" id="about-model">
+      <div class="section-heading">
+        <p class="eyebrow">Under the Hood</p>
+        <h2>About the Prediction Model</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="glass-card about-card">
+          <div class="about-card__icon">🌲</div>
+          <h3>Extra Trees Regressor</h3>
+          <p>An ensemble of extremely randomized decision trees is used to regress the mental health wellness score from behavioral and demographic features.</p>
+        </div>
+        <div class="glass-card about-card">
+          <div class="about-card__icon">📊</div>
+          <h3>12 Input Signals</h3>
+          <p>Age, gender, country, academic level, platform usage, purpose of use, daily usage hours, unlock frequency, study hours, physical activity, sleep, and stress level all feed the model.</p>
+        </div>
+        <div class="glass-card about-card">
+          <div class="about-card__icon">⚡</div>
+          <h3>Real-Time Inference</h3>
+          <p>Requests are served synchronously via a FastAPI backend with Pydantic-validated payloads, returning a score on a continuous 0–10 wellness scale.</p>
+        </div>
+        <div class="glass-card about-card">
+          <div class="about-card__icon">🔒</div>
+          <h3>Not a Diagnosis</h3>
+          <p>This tool produces a statistical estimate for research and awareness purposes only. It is not a clinical or diagnostic instrument.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
